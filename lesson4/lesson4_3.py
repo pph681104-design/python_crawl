@@ -1,6 +1,6 @@
 from playwright.sync_api import sync_playwright
 import os
-from time import sleep
+
 
 def main():
     with sync_playwright() as p:
@@ -14,7 +14,9 @@ def main():
         page.fill("input#email","zhang@example.com")
         page.select_option("select#country","Taiwan")
         page.check("input#subscribe")
-        sleep(3)
+        page.click("button#submit")
+        page.wait_for_load_state("networkidle")
+        page.wait_for_timeout(2000)
         browser.close()
 
 
